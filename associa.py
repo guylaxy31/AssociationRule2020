@@ -54,19 +54,17 @@ while maxProduct < 10:
 minSup = 0.6
 minCon = 0.8
 line = 0
-
-myset = set(transacNO[0])
-myset2 = set(transacNO[1])
-
-data = []
-data2 = []
-data += myset
-data2 += myset2
-
 results = {}
-for i in data:
-        results[i] = data2.count(i)+1
-for i in data2:
-        results[i] = data.count(i)+1      
+
+for line in range(10):
+    globals()["myset" + str(line)] = set(transacNO[line])
+    globals()["data" + str(line)] = []
+    globals()["data" + str(line)] += globals()["myset" + str(line)]
+
+
+for i in data0:
+        results[i] = data1.count(i)+1
+for i in data1:
+        results[i] = data0.count(i)+1     
 print(results)
 
