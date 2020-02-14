@@ -2,6 +2,8 @@ import random
 from collections import Counter
 import operator
 import math 
+import itertools
+
 #  PRODUCT NAME
 product = ["Apple", "Banana", "Coke", "Icesream", "Sprice", "Knife", "Pan", "Pork", "Yogurt", "Tomato sauce",
 "Spaghetti", "Steamed bun", "Mama", "Orange juice", "Sandwich", "Water", "Sausage", "Beer", "Spy", "M150",
@@ -10,7 +12,7 @@ product = ["Apple", "Banana", "Coke", "Icesream", "Sprice", "Knife", "Pan", "Por
 "Toy", "Metal", "Wood", "Glass", "Battery", "Lay", "Vegetable", "Gun", "Smart watch", "Dumbell"]
 
 # GENERATE TRANSACTIONS
-transacNO = [None]*1000
+transacNO = [None]*10
 
 buyAmount1 = [None]*random.randrange(2, 6)
 buyAmount2 = [None]*random.randrange(6, 9)
@@ -76,5 +78,42 @@ print('*** Sorted ***')
 print(sorted_d,'\n')
 print('       -----------------------------------')
 print('       | Min-support Transactions = ',minSup,' |')
-print('       -----------------------------------')
+print('       -----------------------------------\n')
 
+filterProduct1 = []
+
+for product in sorted_d:
+    if(product[1] >= minSup):
+        filterProduct1.append(product)
+
+KeyofList = []
+KeyofList2 = []
+resultsKey = []
+
+for productKey in filterProduct1:
+    KeyofList.append(productKey[0])
+    KeyofList2.append(productKey[0])
+
+resultsKey.append(KeyofList)
+resultsKey.append(KeyofList2)
+
+matchProduct = []
+for element in itertools.product(*resultsKey):
+    if element[0] != element[1] and element[0] not in matchProduct:
+        matchProduct.append(element)
+if len(matchProduct) == 0:
+    print("[ !!!!! No any product is strong rule !!!!! ]")
+else:
+    print('*** TWO PRODUCTS ***')
+    print(matchProduct)
+    
+# COUNT WITH ORIGINAL TRANSACTIONS
+
+print('***********************',transacNO)
+
+for listTrans in transacNO:
+    for prodct in matchProduct:
+        if prodct[0] and prodct[1] in listTrans:
+            print(prodct,'Matched')
+        else:
+            print(prodct,'Not matched!')
